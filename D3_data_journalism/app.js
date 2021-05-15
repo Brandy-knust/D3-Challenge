@@ -48,45 +48,11 @@ function yScale(data, chosenYAxis) {
 function renderCircles(circlesGroup, XScale, chosenXAxis, chosenYAxis) {
     var currentYScale = yScale(allData, chosenYAxis)
     var currentXScale = xScale(allData, chosenXAxis)
-    // circlesGroup.transition()
-    //     .duration(1000)
-    //     .attr("cx", d => currentXScale(d[chosenXAxis]))
-    //     .attr("cy", d => currentYScale(d[chosenYAxis]));
+    
     return circlesGroup;
 }
 
-// function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
-// var label;
-
-// if (chosenXAxis === "income") {
-//     label = "Household Income (Median)";
-// }
-// else if (chosenXAxis === "age") {
-//     label = "Age (Median)";
-// }
-// else {
-//     label = "In Poverty (%)";
-// }
-
-// var toolTip = d3.tip()
-//     .attr("class", "tooltip")
-//     .offset([80, -60])
-//     .html(function (d) {
-//         return (`${d.obesity}<br>${d.smokes}<br>${d.healthcare} ${d[chosenXAxis]}`);
-//     });
-
-// circlesGroup.call(toolTip);
-
-// circlesGroup.on("mouseover", function (allData) {
-//     toolTip.show(data);
-// })
-
-//     // on mouse out event
-//     .on("mouseout", function (allData, index) {
-//         toolTip.hide(data);
-//     });
-// return circlesGroup;
 
 var chosenXAxis = "income";
 var chosenYAxis = "obesity";
@@ -109,25 +75,18 @@ d3.csv("data.csv").then(function (data) {
         console.log(data);
     });
     var xLinearScale = xScale(data, chosenXAxis);
-    // var yLinearScale = d3.scaleLinear()
-    //     .domain(0, d3.min(data, d => d.chosenYAxis))
-    //     .range([height, 0]);
+    
     var yLinearScale = yScale(data, chosenYAxis);
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
     console.log(yLinearScale)
-    // }).catch(function (error) {
-    //     console.log(error);
-
-
+   
     // Initial parameters
 
 
 
 
-    // xLinearScale function
-
-    // yLinearScale function
+   
 
 
 
@@ -150,7 +109,7 @@ d3.csv("data.csv").then(function (data) {
     var circlesGroup = chartGroup.selectAll("circle")
         .data(data)
         .enter()
-        // .text(function (d) { return d.abbr; })
+       
         .append("circle")
         .attr("cx", d => currentXScale(d[chosenXAxis]))
         .attr("cy", d => currentYScale(d[chosenYAxis]))
@@ -172,19 +131,7 @@ d3.csv("data.csv").then(function (data) {
     var labelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${width / 2}, ${height + 20})`)
         .classed("active", true);
-    // var povertyLabel = labelsGroup.append("text")
-    //     .attr("x", 0)
-    //     .attr("y", 20)
-    //     .attr("value1", "poverty") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("Poverty %:");
-
-    // var ageLabel = labelsGroup.append("text")
-    //     .attr("x", 0)
-    //     .attr("y", 20)
-    //     .attr("value1", "age") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("Age (Median):");
+   
 
     var incomeLabel = labelsGroup.append("text")
         .attr("x", 0)
@@ -194,26 +141,7 @@ d3.csv("data.csv").then(function (data) {
         .text("Household Income (Median)");
 
 
-    // var smokesLabel = labelsGroup.append("text")
-    //     .attr("x", 0)
-    //     .attr("y", 20)
-    //     .attr("value2", "smokes") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("Smokes %:");
-
-    // var obesityLabel = labelsGroup.append("text")
-    //     .attr("x", 0)
-    //     .attr("y", 20)
-    //     .attr("value", "obesity") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("Obesity %");
-
-    // var healthcareLabel = labelsGroup.append("text")
-    //     .attr("x", 0)
-    //     .attr("y", 20)
-    //     .attr("value2", "healthcare") // value to grab for event listener
-    //     .classed("active", true)
-    //     .text("Healthcare %:");
+    
 
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
@@ -243,17 +171,4 @@ d3.csv("data.csv").then(function (data) {
             toolTip.hide(d);
         });
 
-    // var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
-
-    // labelsGroup.selectAll("text")
-    //     .on("click", function (renderCircles);  
-    //     var value1 = d3.select(this).attr("value1");
-    // if (value1 !== chosenXAxis) {
-    //     chosenXAxis = value1
-    // };
-    // var value2 = d3.select(this).attr("value2");
-    // if (value2 !== chosenYAxis) {
-    //     chosenYAxis = value2;
-    // };
-    // });
 })
