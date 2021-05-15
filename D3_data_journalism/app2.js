@@ -48,10 +48,10 @@ function yScale(data, chosenYAxis) {
 function renderCircles(circlesGroup, XScale, chosenXAxis, chosenYAxis) {
     var currentYScale = yScale(allData, chosenYAxis)
     var currentXScale = xScale(allData, chosenXAxis)
-    circlesGroup.transition()
-        .duration(1000)
-        .attr("cx", d => currentXScale(d[chosenXAxis]))
-        .attr("cy", d => currentYScale(d[chosenYAxis]));
+    // circlesGroup.transition()
+    //     .duration(1000)
+    //     .attr("cx", d => currentXScale(d[chosenXAxis]))
+    //     .attr("cy", d => currentYScale(d[chosenYAxis]));
     return circlesGroup;
 }
 
@@ -143,13 +143,19 @@ d3.csv("data.csv").then(function (data) {
     var circlesGroup = chartGroup.selectAll("circle")
         .data(data)
         .enter()
-        .text(function (d) { return d.abbr; })
+        // .text(function (d) { return d.abbr; })
         .append("circle")
         .attr("cx", d => currentXScale(d[chosenXAxis]))
         .attr("cy", d => currentYScale(d[chosenYAxis]))
         .attr("r", 10)
         .attr("fill", "white")
         .attr("stroke", "black");
+    
+    // circlesGroup.append("text")
+    //     .attr("dy", function(d){
+    //   return d.cy+5;
+    // }).attr("dx",function(d){ return d.cx-5;})
+    //          .text(function(d){return d.abbr});
 
     var labelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${width / 2}, ${height + 20})`)
