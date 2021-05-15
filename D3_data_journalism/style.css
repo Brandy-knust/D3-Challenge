@@ -24,7 +24,9 @@ body {
   text-align: center;
   background-color: #f5f5f5;
 }
-
+.box {
+  background-color: rgba(131, 131, 240, 0.74);
+}
 #footer p {
   margin: 0;
   font-size: 16px;
