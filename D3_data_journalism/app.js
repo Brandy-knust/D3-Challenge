@@ -1,11 +1,11 @@
-var svgWidth = 1800;
-var svgHeight = 1100;
+var svgWidth = 1500;
+var svgHeight = 900;
 
 var margin = {
     top: 20,
     right: 40,
     bottom: 80,
-    left: 100
+    left: 60
 };
 
 var width = svgWidth - margin.left - margin.right;
@@ -14,7 +14,7 @@ var height = svgHeight - margin.top - margin.bottom;
 // Create an SVG wrapper, append an SVG group that will hold our chart,
 // and shift the latter by left and top margins.
 var svg = d3
-    .select(".chart")
+    .select("#scatter")
     .append("svg")
     .attr("width", svgWidth)
     .attr("height", svgHeight);
@@ -25,8 +25,8 @@ var chartGroup = svg.append("g")
 
 function xScale(data, chosenXAxis) {
     var xLinearScale = d3.scaleLinear()
-        .domain([d3.min(data, d => d[chosenXAxis]),
-        d3.max(data, d => d[chosenXAxis])
+        .domain([d3.min(data, d => d[chosenXAxis]) * .97,
+        d3.max(data, d => d[chosenXAxis]) * 1.03
         ])
         .range([0, width]);
 
@@ -36,8 +36,8 @@ function xScale(data, chosenXAxis) {
 
 function yScale(data, chosenYAxis) {
     var YLinearScale = d3.scaleLinear()
-        .domain([d3.min(data, d => d[chosenYAxis]),
-        d3.max(data, d => d[chosenYAxis])])
+        .domain([d3.min(data, d => d[chosenYAxis]) * .97,
+        d3.max(data, d => d[chosenYAxis]) * 1.03])
             .range([height, 0]);
 
     return YLinearScale;
@@ -113,8 +113,8 @@ d3.csv("data.csv").then(function (data) {
         .append("circle")
         .attr("cx", d => currentXScale(d[chosenXAxis]))
         .attr("cy", d => currentYScale(d[chosenYAxis]))
-        .attr("r", 10)
-        .attr("fill", "white")
+        .attr("r", 11)
+        .attr("fill", "#86cbff")
         .attr("stroke", "black");
 
     var circLabel = chartGroup.selectAll("label")
@@ -124,8 +124,8 @@ d3.csv("data.csv").then(function (data) {
         .attr("class", "StAbbr")
         .text(function (d) { return (d.abbr) })
         .attr("text-anchor", "middle")
-        .attr("font-size", "10")
-        .attr("dy", d => yLinearScale(d.obesity))
+        .attr("font-size", "11")
+        .attr("dy", d => yLinearScale(d.obesity)+2)
         .attr("dx", d => xLinearScale(d.income));
 
     var labelsGroup = chartGroup.append("g")
@@ -138,6 +138,7 @@ d3.csv("data.csv").then(function (data) {
         .attr("y", 20)
         .attr("value", "income") // value to grab for event listener
         .classed("active", true)
+        .attr("font-size", 13)
         .text("Household Income (Median)");
 
 
@@ -148,6 +149,7 @@ d3.csv("data.csv").then(function (data) {
         .attr("y", 0 - margin.left)
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
+        .attr("font-size", "13")
         .classed("axis-text", true)
         .text("Obesity %");
 
